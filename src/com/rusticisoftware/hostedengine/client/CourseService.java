@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.rusticisoftware.hostedengine.client.Enums.*;
@@ -792,7 +793,8 @@ public class CourseService
         ServiceRequest request = new ServiceRequest(configuration);
         request.getParameters().add("courseid", courseId);
         Document response = request.callService("rustici.course.exists");
-		return new Boolean(((Element)response.getElementsByTagName("result").item(0)).getTextContent());
+        Node reportElem = response.getElementsByTagName("result").item(0);
+        return new Boolean(XmlUtils.getXmlString(reportElem));
     }
 
 }
